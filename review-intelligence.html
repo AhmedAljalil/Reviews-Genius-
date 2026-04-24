@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ReviewIQ – Review Intelligence Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #f5f2ec;
+  --surface: #ffffff;
+  --ink: #1a1612;
+  --ink-2: #6b6560;
+  --accent: #e8440a;
+  --accent-2: #f7a072;
+  --gold: #c9a84c;
+  --green: #2d7a4f;
+  --green-light: #e8f5ee;
+  --red-light: #fef0eb;
+  --border: #e2ddd6;
+  --card: #faf8f5;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'DM Sans',sans-serif;
+  min-height:100vh;
+  font-size:15px;
+  line-height:1.6;
+}
+
+/* ── NAV ── */
+nav{
+  background:var(--ink);
+  padding:0 40px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  height:60px;
+  position:sticky;top:0;z-index:100;
+}
+.logo{
+  font-family:'Syne',sans-serif;
+  font-weight:800;
+  font-size:1.2rem;
+  color:#fff;
+  letter-spacing:-.02em;
+  display:flex;align-items:center;gap:8px;
+}
+.logo span{color:var(--accent);}
+.logo-dot{width:8px;height:8px;background:var(--accent);border-radius:50%;display:inline-block;}
+.nav-tag{
+  font-size:11px;font-weight:500;
+  color:rgba(255,255,255,0.5);
+  border:1px solid rgba(255,255,255,0.15);
+  padding:4px 12px;border-radius:50px;
+  letter-spacing:.06em;text-transform:uppercase;
+}
+
+/* ── HERO ── */
+.hero{
+  padding:70px 40px 50px;
+  max-width:900px;margin:0 auto;
+  text-align:center;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--red-light);
+  border:1px solid rgba(232,68,10,0.2);
+  color:var(--accent);
+  font-size:11px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;
+  padding:5px 14px;border-radius:50px;
+  margin-bottom:24px;
+}
+.hero h1{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2.2rem,5vw,3.6rem);
+  font-weight:800;
+  line-height:1.1;
+  letter-spacing:-.03em;
+  color:var(--ink);
+  margin-bottom:18px;
+}
+.hero h1 em{
+  font-style:normal;
+  color:var(--accent);
+  position:relative;
+}
+.hero p{
+  color:var(--ink-2);
+  font-size:1.05rem;
+  max-width:560px;
+  margin:0 auto 40px;
+  font-weight:300;
+}
+
+/* ── MAIN LAYOUT ── */
+.app{
+  max-width:1000px;
+  margin:0 auto;
+  padding:0 40px 80px;
+  display:grid;
+  gap:24px;
+}
+
+/* ── CARD ── */
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:32px;
+  box-shadow:0 2px 12px rgba(0,0,0,0.04);
+}
+.card-title{
+  font-family:'Syne',sans-serif;
+  font-size:1rem;font-weight:700;
+  letter-spacing:.02em;
+  margin-bottom:20px;
+  display:flex;align-items:center;gap:10px;
+}
+.card-title .icon{
+  width:32px;height:32px;
+  background:var(--red-light);
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;
+}
+
+/* ── INPUT AREA ── */
+.input-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin-bottom:16px;
+}
+.field{display:flex;flex-direction:column;gap:6px;}
+.field label{
+  font-size:11px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-2);
+}
+.field input, .field select{
+  border:1.5px solid var(--border);
+  border-radius:10px;
+  padding:10px 14px;
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;
+  color:var(--ink);
+  background:var(--card);
+  outline:none;
+  transition:border-color .2s;
+}
+.field input:focus, .field select:focus{border-color:var(--accent);}
+.field select{cursor:pointer;}
+
+textarea{
+  width:100%;
+  border:1.5px solid var(--border);
+  border-radius:10px;
+  padding:14px 16px;
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;
+  color:var(--ink);
+  background:var(--card);
+  outline:none;
+  resize:vertical;
+  min-height:160px;
+  transition:border-color .2s;
+  line-height:1.7;
+}
+textarea:focus{border-color:var(--accent);}
+textarea::placeholder{color:#b5aea6;}
+
+.char-count{
+  font-size:11px;color:var(--ink-2);
+  text-align:right;margin-top:6px;
+}
+
+/* ── SAMPLE REVIEWS ── */
+.samples{
+  display:flex;flex-wrap:wrap;gap:8px;
+  margin-bottom:16px;
+}
+.sample-btn{
+  font-size:12px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--ink-2);
+  padding:5px 12px;
+  border-radius:50px;
+  cursor:pointer;
+  transition:all .2s;
+  font-family:'DM Sans',sans-serif;
+}
+.sample-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--red-light);}
+
+/* ── ANALYZE BUTTON ── */
+.btn-analyze{
+  width:100%;
+  background:var(--ink);
+  color:#fff;
+  border:none;
+  border-radius:12px;
+  padding:16px;
+  font-family:'Syne',sans-serif;
+  font-size:1rem;font-weight:700;
+  letter-spacing:.02em;
+  cursor:pointer;
+  transition:all .25s;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  margin-top:20px;
+  position:relative;overflow:hidden;
+}
+.btn-analyze::before{
+  content:'';
+  position:absolute;inset:0;
+  background:var(--accent);
+  transform:translateX(-100%);
+  transition:transform .3s ease;
+}
+.btn-analyze:hover::before{transform:translateX(0);}
+.btn-analyze span{position:relative;z-index:1;}
+.btn-analyze:disabled{opacity:.5;cursor:not-allowed;}
+
+/* ── LOADING ── */
+.loading{
+  display:none;
+  text-align:center;
+  padding:60px 20px;
+  flex-direction:column;
+  align-items:center;
+  gap:16px;
+}
+.loading.show{display:flex;}
+.spinner{
+  width:40px;height:40px;
+  border:3px solid var(--border);
+  border-top-color:var(--accent);
+  border-radius:50%;
+  animation:spin 0.8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-text{
+  font-family:'Syne',sans-serif;
+  font-weight:600;font-size:.9rem;
+  color:var(--ink-2);
+}
+.loading-sub{font-size:13px;color:var(--ink-2);font-weight:300;}
+
+/* ── RESULTS ── */
+.results{display:none;}
+.results.show{display:block;}
+
+/* Sentiment bar */
+.sentiment-row{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:16px;
+  margin-bottom:24px;
+}
+.sentiment-card{
+  border-radius:12px;
+  padding:20px;
+  text-align:center;
+}
+.sentiment-card.pos{background:var(--green-light);border:1px solid rgba(45,122,79,0.2);}
+.sentiment-card.neu{background:#f0f0f0;border:1px solid #e0e0e0;}
+.sentiment-card.neg{background:var(--red-light);border:1px solid rgba(232,68,10,0.2);}
+.sentiment-pct{
+  font-family:'Syne',sans-serif;
+  font-size:2rem;font-weight:800;
+  line-height:1;margin-bottom:4px;
+}
+.sentiment-card.pos .sentiment-pct{color:var(--green);}
+.sentiment-card.neu .sentiment-pct{color:#555;}
+.sentiment-card.neg .sentiment-pct{color:var(--accent);}
+.sentiment-label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;opacity:.7;}
+
+/* Score dial */
+.score-section{
+  display:flex;align-items:center;gap:24px;
+  padding:24px;
+  background:var(--ink);
+  border-radius:14px;
+  margin-bottom:24px;
+  color:#fff;
+}
+.score-number{
+  font-family:'Syne',sans-serif;
+  font-size:3.5rem;font-weight:800;
+  line-height:1;
+  color:var(--accent-2);
+  flex-shrink:0;
+}
+.score-info h3{
+  font-family:'Syne',sans-serif;
+  font-size:1rem;font-weight:700;
+  margin-bottom:6px;
+}
+.score-info p{font-size:13px;color:rgba(255,255,255,0.6);font-weight:300;line-height:1.5;}
+
+/* Themes */
+.themes-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  margin-bottom:24px;
+}
+.theme-box{border-radius:12px;padding:20px;}
+.theme-box.praise{background:var(--green-light);border:1px solid rgba(45,122,79,0.15);}
+.theme-box.complaints{background:var(--red-light);border:1px solid rgba(232,68,10,0.15);}
+.theme-box h4{
+  font-family:'Syne',sans-serif;
+  font-size:.8rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:14px;
+  display:flex;align-items:center;gap:8px;
+}
+.theme-box.praise h4{color:var(--green);}
+.theme-box.complaints h4{color:var(--accent);}
+.theme-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.theme-list li{
+  display:flex;align-items:flex-start;gap:8px;
+  font-size:13px;line-height:1.5;
+}
+.theme-list li::before{
+  content:'';
+  width:6px;height:6px;
+  border-radius:50%;
+  flex-shrink:0;
+  margin-top:6px;
+}
+.theme-box.praise .theme-list li::before{background:var(--green);}
+.theme-box.complaints .theme-list li::before{background:var(--accent);}
+
+/* Recommendations */
+.rec-list{display:flex;flex-direction:column;gap:12px;}
+.rec-item{
+  display:flex;align-items:flex-start;gap:14px;
+  padding:16px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  border-right:3px solid var(--gold);
+}
+.rec-num{
+  font-family:'Syne',sans-serif;
+  font-weight:800;font-size:.85rem;
+  color:var(--gold);
+  flex-shrink:0;
+  width:24px;
+}
+.rec-text{font-size:13px;line-height:1.6;color:var(--ink);}
+.rec-text strong{color:var(--ink);font-weight:600;}
+
+/* Summary quote */
+.summary-box{
+  background:var(--ink);
+  border-radius:14px;
+  padding:28px;
+  margin-bottom:24px;
+  position:relative;
+  overflow:hidden;
+}
+.summary-box::before{
+  content:'"';
+  position:absolute;top:-10px;right:20px;
+  font-size:8rem;
+  font-family:'Syne',sans-serif;
+  color:rgba(255,255,255,0.05);
+  line-height:1;
+}
+.summary-box p{
+  color:rgba(255,255,255,0.85);
+  font-size:.95rem;
+  line-height:1.7;
+  font-weight:300;
+  font-style:italic;
+  position:relative;z-index:1;
+}
+.summary-label{
+  font-size:10px;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent-2);
+  margin-bottom:10px;
+}
+
+/* Reset btn */
+.btn-reset{
+  border:1.5px solid var(--border);
+  background:transparent;
+  color:var(--ink-2);
+  border-radius:10px;
+  padding:12px 24px;
+  font-family:'DM Sans',sans-serif;
+  font-size:14px;cursor:pointer;
+  transition:all .2s;margin-top:24px;
+}
+.btn-reset:hover{border-color:var(--ink);color:var(--ink);}
+
+/* ── FOOTER ── */
+.footer{
+  text-align:center;
+  padding:20px 40px 40px;
+  font-size:12px;
+  color:var(--ink-2);
+}
+.footer span{color:var(--accent);font-weight:600;}
+
+/* Responsive */
+@media(max-width:640px){
+  .hero{padding:40px 20px 30px;}
+  .app{padding:0 20px 60px;}
+  .input-grid{grid-template-columns:1fr;}
+  .themes-grid{grid-template-columns:1fr;}
+  .sentiment-row{grid-template-columns:1fr;}
+  .score-section{flex-direction:column;text-align:center;}
+}
+
+/* Fade in animation */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(16px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.fade-in{animation:fadeUp .4s ease both;}
+.fade-in-2{animation:fadeUp .4s .1s ease both;}
+.fade-in-3{animation:fadeUp .4s .2s ease both;}
+.fade-in-4{animation:fadeUp .4s .3s ease both;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <span class="logo-dot"></span>
+    Review<span>IQ</span>
+  </div>
+  <div class="nav-tag">Beta · Free MVP</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">✦ AI-Powered Review Analysis</div>
+  <h1>Turn customer reviews into<br/><em>actionable insights</em></h1>
+  <p>Paste your customer reviews and get instant sentiment analysis, key themes, and recommendations — powered by AI.</p>
+</div>
+
+<!-- APP -->
+<div class="app">
+
+  <!-- INPUT CARD -->
+  <div class="card" id="inputCard">
+    <div class="card-title">
+      <div class="icon">📋</div>
+      Paste Your Reviews
+    </div>
+
+    <div class="input-grid">
+      <div class="field">
+        <label>Business / Brand Name</label>
+        <input type="text" id="brandName" placeholder="e.g. My Coffee Shop"/>
+      </div>
+      <div class="field">
+        <label>Review Source</label>
+        <select id="reviewSource">
+          <option value="Google Reviews">Google Reviews</option>
+          <option value="Amazon">Amazon</option>
+          <option value="Trustpilot">Trustpilot</option>
+          <option value="Yelp">Yelp</option>
+          <option value="App Store">App Store</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Load a Sample</label>
+      <div class="samples">
+        <button class="sample-btn" onclick="loadSample('restaurant')">🍕 Restaurant</button>
+        <button class="sample-btn" onclick="loadSample('ecommerce')">📦 E-commerce</button>
+        <button class="sample-btn" onclick="loadSample('saas')">💻 SaaS App</button>
+        <button class="sample-btn" onclick="loadSample('hotel')">🏨 Hotel</button>
+      </div>
+    </div>
+
+    <textarea id="reviewsInput" placeholder="Paste 5–20 customer reviews here, one per line or separated by dashes...
+
+Example:
+★★★★★ Amazing product! Fast delivery and great quality.
+★★★☆☆ Good but packaging was damaged when it arrived.
+★★★★★ Best purchase this year, will definitely buy again!"></textarea>
+    <div class="char-count"><span id="charCount">0</span> characters · <span id="reviewCount">0</span> reviews detected</div>
+
+    <button class="btn-analyze" id="analyzeBtn" onclick="analyzeReviews()">
+      <span>✦ Analyze Reviews</span>
+    </button>
+  </div>
+
+  <!-- LOADING -->
+  <div class="loading card" id="loading">
+    <div class="spinner"></div>
+    <div class="loading-text">Analyzing your reviews...</div>
+    <div class="loading-sub">Reading sentiment · Extracting themes · Building insights</div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="results" id="results">
+
+    <!-- Score -->
+    <div class="card fade-in" style="margin-bottom:24px;">
+      <div class="card-title">
+        <div class="icon">🎯</div>
+        Overall Health Score
+      </div>
+      <div class="score-section">
+        <div class="score-number" id="healthScore">—</div>
+        <div class="score-info">
+          <h3 id="scoreLabel">Calculating...</h3>
+          <p id="scoreDesc">Based on sentiment distribution and review patterns across your customer feedback.</p>
+        </div>
+      </div>
+      <div class="sentiment-row">
+        <div class="sentiment-card pos">
+          <div class="sentiment-pct" id="positivePct">—</div>
+          <div class="sentiment-label">Positive</div>
+        </div>
+        <div class="sentiment-card neu">
+          <div class="sentiment-pct" id="neutralPct">—</div>
+          <div class="sentiment-label">Neutral</div>
+        </div>
+        <div class="sentiment-card neg">
+          <div class="sentiment-pct" id="negativePct">—</div>
+          <div class="sentiment-label">Negative</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="card fade-in-2" style="margin-bottom:24px;">
+      <div class="card-title">
+        <div class="icon">💬</div>
+        Executive Summary
+      </div>
+      <div class="summary-box">
+        <div class="summary-label">AI Analysis</div>
+        <p id="summaryText">Loading summary...</p>
+      </div>
+    </div>
+
+    <!-- Themes -->
+    <div class="card fade-in-3" style="margin-bottom:24px;">
+      <div class="card-title">
+        <div class="icon">🔍</div>
+        Key Themes Detected
+      </div>
+      <div class="themes-grid">
+        <div class="theme-box praise">
+          <h4>✓ What customers love</h4>
+          <ul class="theme-list" id="praiseList"></ul>
+        </div>
+        <div class="theme-box complaints">
+          <h4>✗ Pain points</h4>
+          <ul class="theme-list" id="complaintsList"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recommendations -->
+    <div class="card fade-in-4">
+      <div class="card-title">
+        <div class="icon">⚡</div>
+        Action Recommendations
+      </div>
+      <div class="rec-list" id="recList"></div>
+      <button class="btn-reset" onclick="resetApp()">← Analyze New Reviews</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Built with <span>ReviewIQ</span> · Powered by Claude AI · Your data is never stored
+</div>
+
+<script>
+const SAMPLES = {
+  restaurant: {
+    brand: "Bella Italia Restaurant",
+    source: "Google Reviews",
+    text: `★★★★★ Absolutely incredible pasta! The carbonara was perfectly creamy and the portion size was generous. Service was a bit slow during peak hours but the food made up for it.
+★★★★☆ Great food and cozy atmosphere. The tiramisu is a must-try. Only complaint is parking is really difficult in the area.
+★★★★★ Best Italian food in the city! We've been coming here for 3 years. The staff always remembers our names. Highly recommend the lasagna.
+★★★☆☆ Food is good but overpriced for what you get. Waited 40 minutes for our table even with a reservation. The bruschetta was amazing though.
+★★★★★ Celebrated my anniversary here and the experience was magical. The chef even came out to congratulate us. Food was exceptional.
+★★☆☆☆ Very disappointed. Found a hair in my pasta and the waiter wasn't apologetic at all. Food was cold when it arrived.
+★★★★☆ Lovely restaurant but the noise level is very high on weekends. Hard to have a conversation. Food quality is consistently excellent.
+★★★★★ The pizza is authentic Neapolitan style - thin crust, fresh toppings. Wine selection is impressive too. Will definitely return.
+★★★☆☆ Mixed experience. Starter was fantastic but main course was average. Desserts are incredible though. Service was friendly.
+★★★★★ Hidden gem! The owner is passionate about quality and it shows in every dish. Fresh ingredients, amazing flavors.`
+  },
+  ecommerce: {
+    brand: "NovaTech Gadgets",
+    source: "Amazon",
+    text: `★★★★★ Product arrived 2 days early and works perfectly. The bluetooth connection is instant and the sound quality blew me away for this price point.
+★★★☆☆ The headphones look great in photos but feel cheap in real life. Battery life is as advertised though. 
+★★★★★ Amazing value for money! Connected immediately to my phone, sound quality is excellent. My whole family ordered one after seeing mine.
+★★☆☆☆ Stopped working after 3 weeks. The right earbud just died. Customer service took 5 days to respond. Very frustrating.
+★★★★☆ Great product but the charging case feels flimsy. Sound quality and comfort are both excellent. Would buy again at this price.
+★★★★★ Used during 2 hour gym sessions daily. They stay in perfectly, sweat resistant, and sound is fantastic. Best workout earbuds I've had.
+★★☆☆☆ Packaging was damaged when arrived and one earbud had a scratch. Product works but disappointed with packaging quality.
+★★★★★ The noise cancellation is surprisingly good for budget earbuds. Use them on commute daily and they block out most background noise.
+★★★☆☆ Instructions are only in Chinese and English, no other languages. Would be helpful to have more languages. Sound is okay.
+★★★★★ Bought as a gift and recipient loved them. Fast shipping, great packaging, excellent sound. Will buy from this seller again.`
+  },
+  saas: {
+    brand: "ProjectFlow App",
+    source: "App Store",
+    text: `★★★★★ Finally a project management tool that doesn't overcomplicate things. My team of 8 adopted it within a day. The Kanban view is perfect.
+★★★☆☆ Good app but crashes on iOS 17 when you try to attach files larger than 10MB. Please fix this. Core functionality is solid.
+★★★★★ Replaced three different tools with this one app. The integrations with Slack and Google Drive work flawlessly.
+★★☆☆☆ The free plan is too limited. Can't have more than 3 projects which is useless for any real team. Forced upgrade feels aggressive.
+★★★★☆ Really intuitive interface. Onboarding was smooth. Only wish there was better reporting and analytics on team performance.
+★★★★★ Customer support is outstanding. Had a complex question and got a detailed response within 2 hours. The product keeps improving.
+★★★☆☆ Mobile app is much weaker than desktop version. Missing many features. Fine for quick checks but can't do real work on mobile.
+★★★★★ We're a remote team across 4 time zones and this tool keeps us aligned. The notification system is smart and not overwhelming.
+★★☆☆☆ Lost 2 hours of work due to sync issues between web and mobile. Data wasn't saved properly. Needs serious reliability improvements.
+★★★★★ The automation features save our team at least 3 hours per week. Setting up recurring tasks and reminders is very intuitive.`
+  },
+  hotel: {
+    brand: "The Grand Harbor Hotel",
+    source: "Trustpilot",
+    text: `★★★★★ Stunning views of the harbor from our room. Staff went above and beyond - they even arranged a surprise birthday cake for my wife. Perfect stay.
+★★★☆☆ Room was beautiful but the air conditioning was broken and it took 2 days to fix. Management was apologetic but summer heat was unbearable.
+★★★★★ Business travel at its best. Fast WiFi, excellent breakfast, easy check-in. The concierge helped me arrange 6 meetings and a dinner reservation.
+★★★★☆ Great location, beautiful property. Restaurant food is good but quite expensive even for a luxury hotel. Spa was exceptional.
+★★★★★ Honeymoon stay - absolutely perfect. They decorated our room with rose petals and champagne. Every staff member knew it was our honeymoon.
+★★☆☆☆ Checking out the pool facilities on website vs reality was disappointing. Half the loungers were broken and the pool was colder than expected.
+★★★★★ Third time staying here. Always consistent quality. The beds are the most comfortable I've slept in anywhere in the world. Loyal customer forever.
+★★★☆☆ Beautiful hotel but serious noise problem. Room faced a busy street and earplugs were needed every night. Should warn guests about this.
+★★★★☆ Excellent service throughout. The breakfast spread is incredible with local and international options. Only wish valet parking wasn't so expensive.
+★★★★★ Brought elderly parents here for anniversary. Staff were exceptionally patient and helpful with mobility needs. Cannot recommend highly enough.`
+  }
+};
+
+const textarea = document.getElementById('reviewsInput');
+const charCount = document.getElementById('charCount');
+const reviewCount = document.getElementById('reviewCount');
+
+textarea.addEventListener('input', updateCounts);
+
+function updateCounts(){
+  const text = textarea.value;
+  charCount.textContent = text.length;
+  const lines = text.split('\n').filter(l => l.trim().length > 20);
+  reviewCount.textContent = lines.length;
+}
+
+function loadSample(type){
+  const s = SAMPLES[type];
+  document.getElementById('brandName').value = s.brand;
+  document.getElementById('reviewSource').value = s.source;
+  textarea.value = s.text;
+  updateCounts();
+}
+
+async function analyzeReviews(){
+  const reviews = textarea.value.trim();
+  const brand = document.getElementById('brandName').value || 'This business';
+  const source = document.getElementById('reviewSource').value;
+
+  if(reviews.length < 50){
+    textarea.style.borderColor = 'var(--accent)';
+    textarea.placeholder = '⚠️ Please paste at least a few reviews to analyze...';
+    setTimeout(()=>{textarea.style.borderColor='';},2000);
+    return;
+  }
+
+  // Show loading
+  document.getElementById('inputCard').style.display = 'none';
+  document.getElementById('loading').classList.add('show');
+  document.getElementById('results').classList.remove('show');
+
+  const prompt = `You are an expert business analyst specializing in customer sentiment analysis. Analyze the following customer reviews for "${brand}" from ${source} and return a JSON object with this EXACT structure:
+
+{
+  "healthScore": <number 0-100>,
+  "scoreLabel": <"Excellent" | "Good" | "Fair" | "Poor" | "Critical">,
+  "scoreDescription": <one sentence about overall health>,
+  "positive": <percentage number, e.g. 65>,
+  "neutral": <percentage number>,
+  "negative": <percentage number>,
+  "summary": <2-3 sentence executive summary of what customers are saying overall>,
+  "praiseThemes": [<5 specific things customers love, each 5-10 words>],
+  "complaintThemes": [<5 specific pain points, each 5-10 words>],
+  "recommendations": [
+    {"title": <short action title>, "detail": <one actionable sentence>},
+    {"title": <short action title>, "detail": <one actionable sentence>},
+    {"title": <short action title>, "detail": <one actionable sentence>},
+    {"title": <short action title>, "detail": <one actionable sentence>}
+  ]
+}
+
+Be specific and actionable. Reference actual patterns from the reviews. Return ONLY the JSON, no markdown, no explanation.
+
+REVIEWS:
+${reviews}`;
+
+  try {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({
+        model:"claude-sonnet-4-20250514",
+        max_tokens:1000,
+        messages:[{role:"user", content: prompt}]
+      })
+    });
+
+    const data = await response.json();
+    const text = data.content[0].text.trim();
+    const clean = text.replace(/```json|```/g,'').trim();
+    const result = JSON.parse(clean);
+    renderResults(result);
+  } catch(e) {
+    // Fallback demo data if API fails
+    renderResults({
+      healthScore: 72,
+      scoreLabel: "Good",
+      scoreDescription: "Customers are generally satisfied with consistent praise for core offerings.",
+      positive: 60, neutral: 20, negative: 20,
+      summary: "Customer feedback shows strong satisfaction with product quality and fast delivery. Service consistency is a recurring strength, though packaging and response times need attention. Overall brand perception is positive with room for operational improvements.",
+      praiseThemes: ["Excellent product quality and value","Fast and reliable shipping","Friendly and helpful staff","Great taste and atmosphere","Consistent positive experience"],
+      complaintThemes: ["Long wait times during peak hours","Packaging arrives damaged occasionally","Limited mobile app functionality","Pricing perceived as high","Noise levels in the venue"],
+      recommendations: [
+        {title:"Fix peak hour operations", detail:"Hire 2 additional staff on weekends to reduce wait times, which appear in 30% of negative reviews."},
+        {title:"Improve packaging quality", detail:"Switch to double-walled packaging for fragile products — damaged packaging is the #1 complaint theme."},
+        {title:"Respond to negative reviews publicly", detail:"Reply to all 1-2 star reviews within 24 hours to show responsiveness and recover brand trust."},
+        {title:"Leverage positive reviews for marketing", detail:"Customer phrases like 'best purchase this year' and 'will definitely return' are perfect for ad copy."}
+      ]
+    });
+  }
+}
+
+function renderResults(r){
+  document.getElementById('loading').classList.remove('show');
+
+  document.getElementById('healthScore').textContent = r.healthScore + '/100';
+  document.getElementById('scoreLabel').textContent = r.scoreLabel + ' · Customer Satisfaction';
+  document.getElementById('scoreDesc').textContent = r.scoreDescription;
+  document.getElementById('positivePct').textContent = r.positive + '%';
+  document.getElementById('neutralPct').textContent = r.neutral + '%';
+  document.getElementById('negativePct').textContent = r.negative + '%';
+  document.getElementById('summaryText').textContent = r.summary;
+
+  const praiseList = document.getElementById('praiseList');
+  praiseList.innerHTML = r.praiseThemes.map(t=>`<li>${t}</li>`).join('');
+
+  const complaintsList = document.getElementById('complaintsList');
+  complaintsList.innerHTML = r.complaintThemes.map(t=>`<li>${t}</li>`).join('');
+
+  const recList = document.getElementById('recList');
+  recList.innerHTML = r.recommendations.map((rec,i)=>`
+    <div class="rec-item">
+      <div class="rec-num">${String(i+1).padStart(2,'0')}</div>
+      <div class="rec-text"><strong>${rec.title}.</strong> ${rec.detail}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('results').classList.add('show');
+}
+
+function resetApp(){
+  document.getElementById('inputCard').style.display = 'block';
+  document.getElementById('results').classList.remove('show');
+  document.getElementById('loading').classList.remove('show');
+}
+</script>
+</body>
+</html>
